@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Handbook - NetNam Corporation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #006837;
+            --primary-dark: #004D28;
+            --bg-sub: #F7FAF8;
+            --text-dark: #0F172A;
+            --text-muted: #475569;
+            --border: #DCFCE7;
+            --border-sub: #E2E8F0;
+            --white: #FFFFFF;
+            --sidebar-text: #FFFFFF;
+            --banner-text: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-sub);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR BÊN TRÁI */
+        aside {
+            width: 300px;
+            background-color: var(--primary-dark);
+            color: var(--sidebar-text);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-box {
+            background: var(--white);
+            padding: 6px 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            width: 100px;
+            flex-shrink: 0;
+        }
+
+        .logo-box img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            max-width: 100%;
+        }
+
+        .sidebar-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+            outline: none;
+            color: var(--sidebar-text);
+        }
+
+        .logo-edit-box {
+            display: none;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-edit-box label {
+            font-size: 0.72rem;
+            color: #93C5FD;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .upload-btn-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 8px 10px;
+            background: #2563EB;
+            color: white;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 8px;
+        }
+
+        .upload-btn-label:hover {
+            background: #1D4ED8;
+        }
+
+        .logo-edit-box input[type="file"] {
+            display: none;
+        }
+
+        .logo-edit-box input[type="text"] {
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+            outline: none;
+        }
+
+        body.is-editing .logo-edit-box {
+            display: block;
+        }
+
+        .menu-list {
+            list-style: none;
+            padding: 20px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            color: var(--sidebar-text);
+            opacity: 0.9;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: var(--primary);
+            color: var(--sidebar-text);
+            opacity: 1;
+        }
+
+        .menu-text {
+            outline: none;
+            flex: 1;
+        }
+
+        .sidebar-edit-link {
+            display: none;
+            padding: 4px 8px 8px 8px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            margin-top: 2px;
+        }
+
+        .sidebar-edit-link label {
+            font-size: 0.7rem;
+            color: #93C5FD;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .sidebar-edit-link input {
+            width: 100%;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            outline: none;
+        }
+
+        body.is-editing .sidebar-edit-link {
+            display: block;
+        }
+
+        /* NỘI DUNG CHÍNH */
+        .app-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        header {
+            background: var(--white);
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-sub);
+        }
+
+        .header-title {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            outline: none;
+        }
+
+        .admin-toggle-btn {
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .admin-toggle-btn:hover {
+            background: #1D4ED8;
+        }
+
+        .admin-toggle-btn.editing {
+            background: #DC2626;
+        }
+
+        .main-content {
+            padding: 32px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* BẢNG ĐIỀU KHIỂN SỬA ĐỔI (MÀU SẮC & ACCOUNT) */
+        .color-picker-panel {
+            display: none;
+            background: var(--white);
+            border: 2px dashed #2563EB;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: -10px;
+        }
+
+        body.is-editing .color-picker-panel {
+            display: block;
+        }
+
+        .color-picker-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #1E3A8A;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px dashed var(--border-sub);
+        }
+
+        .admin-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .admin-input-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .admin-input-group input {
+            padding: 8px 12px;
+            border: 1px solid var(--border-sub);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .admin-input-group input:focus {
+            border-color: #2563EB;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .color-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #F8FAFC;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-sub);
+        }
+
+        .color-item label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .color-item input[type="color"] {
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            background: none;
+        }
+
+        /* HERO BANNER */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--banner-text);
+            padding: 36px 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            outline: none;
+            color: var(--banner-text);
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            outline: none;
+            color: var(--banner-text);
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* MODULE CARD GRID */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .module-card {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
+        }
+
+        .module-title-link {
+            text-decoration: none;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+
+        .module-title-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .module-title {
+            font-weight: 800;
+            font-size: 1.05rem;
+            outline: none;
+        }
+
+        .module-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            outline: none;
+        }
+
+        .module-action-wrapper {
+            margin-top: 16px;
+        }
+
+        .module-action {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .module-action:hover {
+            text-decoration: underline;
+        }
+
+        .action-text {
+            outline: none;
+        }
+
+        .edit-link-box {
+            display: none;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-sub);
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .edit-link-group label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #2563EB;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .edit-link-input {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid var(--border-sub);
+            border-radius: 6px;
+            font-size: 0.78rem;
+            outline: none;
+        }
+
+        .edit-link-input:focus {
+            border-color: #2563EB;
+        }
+
+        /* VIỀN NỔI BẬT KHI CHỈNH SỬA */
+        body.is-editing .sidebar-title,
+        body.is-editing .header-title,
+        body.is-editing .hero-title,
+        body.is-editing .hero-subtitle,
+        body.is-editing .module-title,
+        body.is-editing .module-desc,
+        body.is-editing .action-text,
+        body.is-editing .menu-text {
+            border: 1px dashed #2563EB !important;
+            padding: 2px 4px;
+            border-radius: 4px;
+            background: #EFF6FF !important;
+            color: #1E3A8A !important;
+        }
+
+        body.is-editing .edit-link-box {
+            display: flex;
+        }
+
+        /* POPUP MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-modal {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            width: 360px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-sub);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .close-modal-btn {
+            width: 100%;
+            background: transparent;
+            color: var(--text-muted);
+            padding: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .error-msg {
+            color: #DC2626;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR BÊN TRÁI -->
+    <aside>
+        <div class="sidebar-header">
+            <div class="header-top">
+                <div class="logo-box">
+                    <img id="main-logo" src="https://images.toplist.vn/images/800px/netnam-corporation-438491.jpg" alt="NetNam Logo">
+                </div>
+                <div class="sidebar-title" id="sidebar-main-title">SALES HANDBOOK</div>
+            </div>
+            
+            <div class="logo-edit-box">
+                <label><i class="fas fa-image"></i> Cập nhật Logo:</label>
+                <label for="logo-file-input" class="upload-btn-label">
+                    <i class="fas fa-upload"></i> Tải ảnh từ máy tính
+                </label>
+                <input type="file" id="logo-file-input" accept="image/*" onchange="uploadLogoFile(event)">
+
+                <label style="margin-top: 4px;"><i class="fas fa-link"></i> Hoặc Dán Link URL ảnh online:</label>
+                <input type="text" id="logo-url-input" value="https://images.toplist.vn/images/800px/netnam-corporation-438491.jpg" placeholder="https://..." onchange="updateLogoFromUrl()">
+            </div>
+        </div>
+
+        <ul class="menu-list">
+            <li class="menu-wrapper">
+                <a href="#" target="_blank" class="menu-item active" id="sidebar-btn-1" onclick="handleLinkClick(event)">
+                    <i class="fas fa-bookmark"></i> <span class="menu-text" id="menu-text-1">01. Sales cần biết</span>
+                </a>
+                <div class="sidebar-edit-link">
+                    <label><i class="fas fa-link"></i> Link danh mục 01:</label>
+                    <input type="text" id="sidebar-link-1" value="#" onchange="updateSidebarLink(1)">
+                </div>
+            </li>
+
+            <li class="menu-wrapper">
+                <a href="#" target="_blank" class="menu-item" id="sidebar-btn-2" onclick="handleLinkClick(event)">
+                    <i class="fas fa-shield-alt"></i> <span class="menu-text" id="menu-text-2">02. Quy tắc Phê duyệt</span>
+                </a>
+                <div class="sidebar-edit-link">
+                    <label><i class="fas fa-link"></i> Link danh mục 02:</label>
+                    <input type="text" id="sidebar-link-2" value="#" onchange="updateSidebarLink(2)">
+                </div>
+            </li>
+
+            <li class="menu-wrapper">
+                <a href="#" target="_blank" class="menu-item" id="sidebar-btn-3" onclick="handleLinkClick(event)">
+                    <i class="fas fa-diagram-project"></i> <span class="menu-text" id="menu-text-3">03. Quy trình Công ty</span>
+                </a>
+                <div class="sidebar-edit-link">
+                    <label><i class="fas fa-link"></i> Link danh mục 03:</label>
+                    <input type="text" id="sidebar-link-3" value="#" onchange="updateSidebarLink(3)">
+                </div>
+            </li>
+
+            <li class="menu-wrapper">
+                <a href="#" target="_blank" class="menu-item" id="sidebar-btn-4" onclick="handleLinkClick(event)">
+                    <i class="fas fa-ticket-alt"></i> <span class="menu-text" id="menu-text-4">04. Hướng dẫn Ticket</span>
+                </a>
+                <div class="sidebar-edit-link">
+                    <label><i class="fas fa-link"></i> Link danh mục 04:</label>
+                    <input type="text" id="sidebar-link-4" value="#" onchange="updateSidebarLink(4)">
+                </div>
+            </li>
+
+            <li class="menu-wrapper">
+                <a href="#" target="_blank" class="menu-item" id="sidebar-btn-5" onclick="handleLinkClick(event)">
+                    <i class="fas fa-award"></i> <span class="menu-text" id="menu-text-5">05. Hồ sơ Năng lực</span>
+                </a>
+                <div class="sidebar-edit-link">
+                    <label><i class="fas fa-link"></i> Link danh mục 05:</label>
+                    <input type="text" id="sidebar-link-5" value="#" onchange="updateSidebarLink(5)">
+                </div>
+            </li>
+
+            <li class="menu-wrapper">
+                <a href="#" target="_blank" class="menu-item" id="sidebar-btn-6" onclick="handleLinkClick(event)">
+                    <i class="fas fa-file-contract"></i> <span class="menu-text" id="menu-text-6">06. Biểu mẫu Hợp đồng</span>
+                </a>
+                <div class="sidebar-edit-link">
+                    <label><i class="fas fa-link"></i> Link danh mục 06:</label>
+                    <input type="text" id="sidebar-link-6" value="#" onchange="updateSidebarLink(6)">
+                </div>
+            </li>
+
+            <li class="menu-wrapper">
+                <a href="#" target="_blank" class="menu-item" id="sidebar-btn-7" onclick="handleLinkClick(event)">
+                    <i class="fas fa-address-book"></i> <span class="menu-text" id="menu-text-7">07. Danh bạ Nội bộ</span>
+                </a>
+                <div class="sidebar-edit-link">
+                    <label><i class="fas fa-link"></i> Link danh mục 07:</label>
+                    <input type="text" id="sidebar-link-7" value="#" onchange="updateSidebarLink(7)">
+                </div>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <div class="app-container">
+        <header>
+            <div class="header-title" id="header-company-name">NETNAM CORPORATION</div>
+            <div style="display: flex; gap: 16px; align-items: center;">
+                <button class="admin-toggle-btn" id="adminBtn" onclick="handleAdminBtnClick()">
+                    <i class="fas fa-user-lock"></i> <span id="btnText">Đăng nhập Quản trị</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- BẢNG TÙY CHỈNH MÀU SẮC & THÔNG TIN TÀI KHOẢN ADMIN -->
+            <div class="color-picker-panel">
+                <div class="color-picker-title">
+                    <i class="fas fa-user-gear"></i> THAY ĐỔI THÔNG TIN QUẢN TRỊ (USER / PASSWORD)
+                </div>
+                <div class="admin-config-grid">
+                    <div class="admin-input-group">
+                        <label><i class="fas fa-user"></i> Tài khoản Admin mới:</label>
+                        <input type="text" id="new-admin-user" value="admin" placeholder="Nhập Username mới">
+                    </div>
+                    <div class="admin-input-group">
+                        <label><i class="fas fa-key"></i> Mật khẩu Admin mới:</label>
+                        <input type="password" id="new-admin-pass" value="s@123456" placeholder="Nhập Mật khẩu mới">
+                    </div>
+                </div>
+
+                <div class="color-picker-title">
+                    <i class="fas fa-palette"></i> BẢNG ĐIỀU KHIỂN MÀU SẮC TRANG WEB
+                </div>
+                <div class="color-grid">
+                    <div class="color-item">
+                        <label>Màu nền trang (Background):</label>
+                        <input type="color" id="picker-bg" value="#F7FAF8" onchange="changeColor('--bg-sub', this.value)">
+                    </div>
+                    <div class="color-item">
+                        <label>Màu chủ đạo (Primary):</label>
+                        <input type="color" id="picker-primary" value="#006837" onchange="changeColor('--primary', this.value)">
+                    </div>
+                    <div class="color-item">
+                        <label>Màu Sidebar / Banner Dark:</label>
+                        <input type="color" id="picker-primary-dark" value="#004D28" onchange="changeColor('--primary-dark', this.value)">
+                    </div>
+                    <div class="color-item">
+                        <label>Màu chữ chính (Main Text):</label>
+                        <input type="color" id="picker-text-dark" value="#0F172A" onchange="changeColor('--text-dark', this.value)">
+                    </div>
+                    <div class="color-item">
+                        <label>Màu chữ Banner / Sidebar:</label>
+                        <input type="color" id="picker-banner-text" value="#FFFFFF" onchange="changeColor('--banner-text', this.value); changeColor('--sidebar-text', this.value)">
+                    </div>
+                    <div class="color-item">
+                        <label>Màu viền Khung (Border):</label>
+                        <input type="color" id="picker-border" value="#DCFCE7" onchange="changeColor('--border', this.value)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-banner">
+                <div class="hero-title" id="banner-hero-title">SALES HANDBOOK</div>
+                <div class="hero-subtitle" id="banner-hero-subtitle">Cổng thông tin tra cứu quy trình, chính sách và tài liệu bán hàng dành cho Sales NetNam</div>
+            </div>
+
+            <div class="section-title">
+                <span>DANH MỤC CHÍNH</span>
+                <span id="saveNotice" style="font-size: 0.85rem; color: #16A34A; display: none;"><i class="fas fa-circle-check"></i> Đã lưu cấu hình mới!</span>
+            </div>
+
+            <div class="modules-grid">
+                
+                <!-- MODULE 1 -->
+                <div class="module-card" id="card-1">
+                    <div>
+                        <a href="#" target="_blank" class="module-title-link" id="title-anchor-1" onclick="handleLinkClick(event)">
+                            <div class="module-title" id="title-1">01. Sales cần biết</div>
+                        </a>
+                        <div class="module-desc" id="desc-1">Tổng hợp kiến thức nền tảng, văn hóa kinh doanh và sổ tay onboard dành cho nhân sự mới.</div>
+                    </div>
+                    <div class="module-action-wrapper">
+                        <a href="#" target="_blank" class="module-action" id="action-1" onclick="handleLinkClick(event)">
+                            <span class="action-text" id="action-text-1">Xem chi tiết</span> <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="edit-link-box">
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-font"></i> Chữ của nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="action-label-input-1" value="Xem chi tiết" oninput="updateActionText(1)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-link"></i> Link Tiêu đề (Tổng quan):</label>
+                            <input type="text" class="edit-link-input" id="title-link-1" value="#" onchange="updateTitleLink(1)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-external-link-alt"></i> Link Nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="detail-link-1" value="#" onchange="updateDetailLink(1)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 2 -->
+                <div class="module-card" id="card-2">
+                    <div>
+                        <a href="#" target="_blank" class="module-title-link" id="title-anchor-2" onclick="handleLinkClick(event)">
+                            <div class="module-title" id="title-2">02. Quy tắc Phê duyệt</div>
+                        </a>
+                        <div class="module-desc" id="desc-2">Ma trận thẩm quyền, hạn mức chiết khấu và quy định phê duyệt phương án kinh doanh.</div>
+                    </div>
+                    <div class="module-action-wrapper">
+                        <a href="#" target="_blank" class="module-action" id="action-2" onclick="handleLinkClick(event)">
+                            <span class="action-text" id="action-text-2">Xem chi tiết</span> <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="edit-link-box">
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-font"></i> Chữ của nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="action-label-input-2" value="Xem chi tiết" oninput="updateActionText(2)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-link"></i> Link Tiêu đề (Tổng quan):</label>
+                            <input type="text" class="edit-link-input" id="title-link-2" value="#" onchange="updateTitleLink(2)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-external-link-alt"></i> Link Nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="detail-link-2" value="#" onchange="updateDetailLink(2)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 3 -->
+                <div class="module-card" id="card-3">
+                    <div>
+                        <a href="#" target="_blank" class="module-title-link" id="title-anchor-3" onclick="handleLinkClick(event)">
+                            <div class="module-title" id="title-3">03. Quy trình Công ty</div>
+                        </a>
+                        <div class="module-desc" id="desc-3">Quy trình phối hợp liên phòng ban: triển khai dịch vụ, nghiệm thu, thanh toán và gia hạn.</div>
+                    </div>
+                    <div class="module-action-wrapper">
+                        <a href="#" target="_blank" class="module-action" id="action-3" onclick="handleLinkClick(event)">
+                            <span class="action-text" id="action-text-3">Xem chi tiết</span> <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="edit-link-box">
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-font"></i> Chữ của nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="action-label-input-3" value="Xem chi tiết" oninput="updateActionText(3)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-link"></i> Link Tiêu đề (Tổng quan):</label>
+                            <input type="text" class="edit-link-input" id="title-link-3" value="#" onchange="updateTitleLink(3)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-external-link-alt"></i> Link Nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="detail-link-3" value="#" onchange="updateDetailLink(3)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 4 -->
+                <div class="module-card" id="card-4">
+                    <div>
+                        <a href="#" target="_blank" class="module-title-link" id="title-anchor-4" onclick="handleLinkClick(event)">
+                            <div class="module-title" id="title-4">04. Hướng dẫn Ticket</div>
+                        </a>
+                        <div class="module-desc" id="desc-4">Hướng dẫn khởi tạo, phân loại và theo dõi luồng xử lý ticket hỗ trợ kỹ thuật cho khách hàng.</div>
+                    </div>
+                    <div class="module-action-wrapper">
+                        <a href="#" target="_blank" class="module-action" id="action-4" onclick="handleLinkClick(event)">
+                            <span class="action-text" id="action-text-4">Xem chi tiết</span> <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="edit-link-box">
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-font"></i> Chữ của nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="action-label-input-4" value="Xem chi tiết" oninput="updateActionText(4)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-link"></i> Link Tiêu đề (Tổng quan):</label>
+                            <input type="text" class="edit-link-input" id="title-link-4" value="#" onchange="updateTitleLink(4)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-external-link-alt"></i> Link Nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="detail-link-4" value="#" onchange="updateDetailLink(4)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 5 -->
+                <div class="module-card" id="card-5">
+                    <div>
+                        <a href="#" target="_blank" class="module-title-link" id="title-anchor-5" onclick="handleLinkClick(event)">
+                            <div class="module-title" id="title-5">05. Hồ sơ Năng lực</div>
+                        </a>
+                        <div class="module-desc" id="desc-5">Company Profile, hồ sơ năng lực kỹ thuật, chứng chỉ quốc tế và các case study nổi bật.</div>
+                    </div>
+                    <div class="module-action-wrapper">
+                        <a href="#" target="_blank" class="module-action" id="action-5" onclick="handleLinkClick(event)">
+                            <span class="action-text" id="action-text-5">Xem chi tiết</span> <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="edit-link-box">
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-font"></i> Chữ của nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="action-label-input-5" value="Xem chi tiết" oninput="updateActionText(5)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-link"></i> Link Tiêu đề (Tổng quan):</label>
+                            <input type="text" class="edit-link-input" id="title-link-5" value="#" onchange="updateTitleLink(5)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-external-link-alt"></i> Link Nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="detail-link-5" value="#" onchange="updateDetailLink(5)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 6 -->
+                <div class="module-card" id="card-6">
+                    <div>
+                        <a href="#" target="_blank" class="module-title-link" id="title-anchor-6" onclick="handleLinkClick(event)">
+                            <div class="module-title" id="title-6">06. Biểu mẫu Hợp đồng</div>
+                        </a>
+                        <div class="module-desc" id="desc-6">Kho mẫu hợp đồng chuẩn, phụ lục dịch vụ, biên bản nghiệm thu và các văn bản pháp lý.</div>
+                    </div>
+                    <div class="module-action-wrapper">
+                        <a href="#" target="_blank" class="module-action" id="action-6" onclick="handleLinkClick(event)">
+                            <span class="action-text" id="action-text-6">Xem chi tiết</span> <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="edit-link-box">
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-font"></i> Chữ của nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="action-label-input-6" value="Xem chi tiết" oninput="updateActionText(6)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-link"></i> Link Tiêu đề (Tổng quan):</label>
+                            <input type="text" class="edit-link-input" id="title-link-6" value="#" onchange="updateTitleLink(6)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-external-link-alt"></i> Link Nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="detail-link-6" value="#" onchange="updateDetailLink(6)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 7 -->
+                <div class="module-card" id="card-7">
+                    <div>
+                        <a href="#" target="_blank" class="module-title-link" id="title-anchor-7" onclick="handleLinkClick(event)">
+                            <div class="module-title" id="title-7">07. Danh bạ Nội bộ</div>
+                        </a>
+                        <div class="module-desc" id="desc-7">Sơ đồ tổ chức, thông tin liên hệ và danh sách đầu mối hỗ trợ nhanh từ các phòng ban.</div>
+                    </div>
+                    <div class="module-action-wrapper">
+                        <a href="#" target="_blank" class="module-action" id="action-7" onclick="handleLinkClick(event)">
+                            <span class="action-text" id="action-text-7">Xem chi tiết</span> <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="edit-link-box">
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-font"></i> Chữ của nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="action-label-input-7" value="Xem chi tiết" oninput="updateActionText(7)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-link"></i> Link Tiêu đề (Tổng quan):</label>
+                            <input type="text" class="edit-link-input" id="title-link-7" value="#" onchange="updateTitleLink(7)">
+                        </div>
+                        <div class="edit-link-group">
+                            <label><i class="fas fa-external-link-alt"></i> Link Nút bấm:</label>
+                            <input type="text" class="edit-link-input" id="detail-link-7" value="#" onchange="updateDetailLink(7)">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL ĐĂNG NHẬP -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="login-modal">
+            <div class="modal-header"><i class="fas fa-user-shield"></i> Đăng nhập Quản trị</div>
+            <div class="form-group">
+                <label>Tài khoản / Username</label>
+                <input type="text" id="username" placeholder="Nhập admin">
+            </div>
+            <div class="form-group">
+                <label>Mật khẩu / Password</label>
+                <input type="password" id="password" placeholder="Nhập mật khẩu" onkeyup="if(event.key === 'Enter') checkLogin()">
+            </div>
+            <div class="error-msg" id="errorMsg"><i class="fas fa-triangle-exclamation"></i> Sai tài khoản hoặc mật khẩu!</div>
+            <button class="login-btn" onclick="checkLogin()">Đăng nhập</button>
+            <button class="close-modal-btn" onclick="closeModal()">Hủy</button>
+        </div>
+    </div>
+
+    <script>
+        // Mặc định tài khoản ban đầu nếu chưa lưu lần nào
+        let currentAdminUser = "admin";
+        let currentAdminPass = "s@123456";
+
+        let isLoggedIn = false;
+        let isEditing = false;
+
+        function handleLinkClick(event) {
+            if (isEditing) {
+                event.preventDefault();
+            } else {
+                const targetAnchor = event.currentTarget;
+                if (targetAnchor.getAttribute('href') === '#' || !targetAnchor.getAttribute('href')) {
+                    event.preventDefault();
+                }
+            }
+        }
+
+        function changeColor(varName, colorValue) {
+            document.documentElement.style.setProperty(varName, colorValue);
+        }
+
+        function handleAdminBtnClick() {
+            if (!isLoggedIn) {
+                document.getElementById('loginModal').style.display = 'flex';
+            } else {
+                toggleAdminMode();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('errorMsg').style.display = 'none';
+        }
+
+        function checkLogin() {
+            const userVal = document.getElementById('username').value.trim();
+            const passVal = document.getElementById('password').value.trim();
+            
+            if (userVal === currentAdminUser && passVal === currentAdminPass) {
+                isLoggedIn = true;
+                closeModal();
+                toggleAdminMode();
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        function toggleAdminMode() {
+            isEditing = !isEditing;
+            const btn = document.getElementById('adminBtn');
+            const btnText = document.getElementById('btnText');
+            
+            if (isEditing) {
+                document.body.classList.add('is-editing');
+                btn.classList.add('editing');
+                btnText.innerText = 'Lưu & Thoát chế độ sửa';
+                makeContentEditable(true);
+            } else {
+                document.body.classList.remove('is-editing');
+                btn.classList.remove('editing');
+                btnText.innerText = 'Chế độ Quản trị / Sửa trang';
+                makeContentEditable(false);
+                saveDataLocally();
+            }
+        }
+
+        function makeContentEditable(enable) {
+            document.getElementById('header-company-name').contentEditable = enable;
+            document.getElementById('sidebar-main-title').contentEditable = enable;
+            document.getElementById('banner-hero-title').contentEditable = enable;
+            document.getElementById('banner-hero-subtitle').contentEditable = enable;
+
+            for (let i = 1; i <= 7; i++) {
+                const title = document.getElementById(`title-${i}`);
+                const desc = document.getElementById(`desc-${i}`);
+                const actionText = document.getElementById(`action-text-${i}`);
+                const menuText = document.getElementById(`menu-text-${i}`);
+                
+                if (title) title.contentEditable = enable;
+                if (desc) desc.contentEditable = enable;
+                if (actionText) actionText.contentEditable = enable;
+                if (menuText) menuText.contentEditable = enable;
+            }
+        }
+
+        function uploadLogoFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64Image = e.target.result;
+                    document.getElementById('main-logo').src = base64Image;
+                    document.getElementById('logo-url-input').value = base64Image;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updateLogoFromUrl() {
+            const url = document.getElementById('logo-url-input').value.trim();
+            const logoImg = document.getElementById('main-logo');
+            if (logoImg && url) {
+                logoImg.src = url;
+            }
+        }
+
+        function updateTitleLink(id) {
+            const inputVal = document.getElementById(`title-link-${id}`).value;
+            const titleAnchor = document.getElementById(`title-anchor-${id}`);
+            if (titleAnchor) titleAnchor.href = inputVal;
+        }
+
+        function updateDetailLink(id) {
+            const inputVal = document.getElementById(`detail-link-${id}`).value;
+            const actionAnchor = document.getElementById(`action-${id}`);
+            if (actionAnchor) actionAnchor.href = inputVal;
+        }
+
+        function updateActionText(id) {
+            const inputVal = document.getElementById(`action-label-input-${id}`).value;
+            const actionText = document.getElementById(`action-text-${id}`);
+            if (actionText) actionText.innerText = inputVal;
+        }
+
+        function updateSidebarLink(id) {
+            const inputVal = document.getElementById(`sidebar-link-${id}`).value;
+            const sidebarBtn = document.getElementById(`sidebar-btn-${id}`);
+            if (sidebarBtn) sidebarBtn.href = inputVal;
+        }
+
+        function saveDataLocally() {
+            // Lấy thông tin tài khoản admin mới (nếu có nhập)
+            const newUserInput = document.getElementById('new-admin-user')?.value.trim();
+            const newPassInput = document.getElementById('new-admin-pass')?.value.trim();
+
+            if (newUserInput) currentAdminUser = newUserInput;
+            if (newPassInput) currentAdminPass = newPassInput;
+
+            const logoUrl = document.getElementById('logo-url-input')?.value;
+            const headerCompanyName = document.getElementById('header-company-name')?.innerText;
+            const sidebarMainTitle = document.getElementById('sidebar-main-title')?.innerHTML;
+            const bannerHeroTitle = document.getElementById('banner-hero-title')?.innerText;
+            const bannerHeroSubtitle = document.getElementById('banner-hero-subtitle')?.innerText;
+
+            const colors = {
+                bgSub: document.getElementById('picker-bg').value,
+                primary: document.getElementById('picker-primary').value,
+                primaryDark: document.getElementById('picker-primary-dark').value,
+                textDark: document.getElementById('picker-text-dark').value,
+                bannerText: document.getElementById('picker-banner-text').value,
+                border: document.getElementById('picker-border').value
+            };
+
+            const handbookData = [];
+
+            for (let i = 1; i <= 7; i++) {
+                const title = document.getElementById(`title-${i}`)?.innerText;
+                const desc = document.getElementById(`desc-${i}`)?.innerText;
+                const actionLabel = document.getElementById(`action-text-${i}`)?.innerText;
+                const menuText = document.getElementById(`menu-text-${i}`)?.innerText;
+                const titleLink = document.getElementById(`title-link-${i}`)?.value;
+                const detailLink = document.getElementById(`detail-link-${i}`)?.value;
+                const sidebarLink = document.getElementById(`sidebar-link-${i}`)?.value;
+
+                handbookData.push({ id: i, title, desc, actionLabel, menuText, titleLink, detailLink, sidebarLink });
+            }
+
+            const pageConfig = {
+                adminUser: currentAdminUser,
+                adminPass: currentAdminPass,
+                logoUrl: logoUrl,
+                headerCompanyName: headerCompanyName,
+                sidebarMainTitle: sidebarMainTitle,
+                bannerHeroTitle: bannerHeroTitle,
+                bannerHeroSubtitle: bannerHeroSubtitle,
+                colors: colors,
+                modules: handbookData
+            };
+
+            localStorage.setItem('netnam_handbook_v10', JSON.stringify(pageConfig));
+
+            const saveNotice = document.getElementById('saveNotice');
+            saveNotice.style.display = 'inline-block';
+            setTimeout(() => { saveNotice.style.display = 'none'; }, 2500);
+        }
+
+        function loadSavedData() {
+            const saved = localStorage.getItem('netnam_handbook_v10');
+            if (saved) {
+                const pageConfig = JSON.parse(saved);
+                
+                // Tải thông tin tài khoản đăng nhập đã đổi
+                if (pageConfig.adminUser) {
+                    currentAdminUser = pageConfig.adminUser;
+                    document.getElementById('new-admin-user').value = pageConfig.adminUser;
+                }
+                if (pageConfig.adminPass) {
+                    currentAdminPass = pageConfig.adminPass;
+                    document.getElementById('new-admin-pass').value = pageConfig.adminPass;
+                }
+
+                if (pageConfig.logoUrl) {
+                    const logoImg = document.getElementById('main-logo');
+                    const logoInput = document.getElementById('logo-url-input');
+                    if (logoImg) logoImg.src = pageConfig.logoUrl;
+                    if (logoInput) logoInput.value = pageConfig.logoUrl;
+                }
+
+                if (pageConfig.headerCompanyName) {
+                    document.getElementById('header-company-name').innerText = pageConfig.headerCompanyName;
+                }
+                if (pageConfig.sidebarMainTitle) {
+                    document.getElementById('sidebar-main-title').innerHTML = pageConfig.sidebarMainTitle;
+                }
+                if (pageConfig.bannerHeroTitle) {
+                    document.getElementById('banner-hero-title').innerText = pageConfig.bannerHeroTitle;
+                }
+                if (pageConfig.bannerHeroSubtitle) {
+                    document.getElementById('banner-hero-subtitle').innerText = pageConfig.bannerHeroSubtitle;
+                }
+
+                if (pageConfig.colors) {
+                    const c = pageConfig.colors;
+                    if (c.bgSub) { changeColor('--bg-sub', c.bgSub); document.getElementById('picker-bg').value = c.bgSub; }
+                    if (c.primary) { changeColor('--primary', c.primary); document.getElementById('picker-primary').value = c.primary; }
+                    if (c.primaryDark) { changeColor('--primary-dark', c.primaryDark); document.getElementById('picker-primary-dark').value = c.primaryDark; }
+                    if (c.textDark) { changeColor('--text-dark', c.textDark); document.getElementById('picker-text-dark').value = c.textDark; }
+                    if (c.bannerText) { 
+                        changeColor('--banner-text', c.bannerText); 
+                        changeColor('--sidebar-text', c.bannerText); 
+                        document.getElementById('picker-banner-text').value = c.bannerText; 
+                    }
+                    if (c.border) { changeColor('--border', c.border); document.getElementById('picker-border').value = c.border; }
+                }
+
+                if (pageConfig.modules) {
+                    pageConfig.modules.forEach(item => {
+                        const title = document.getElementById(`title-${item.id}`);
+                        const desc = document.getElementById(`desc-${item.id}`);
+                        const actionText = document.getElementById(`action-text-${item.id}`);
+                        const menuText = document.getElementById(`menu-text-${item.id}`);
+                        
+                        const actionLabelInput = document.getElementById(`action-label-input-${item.id}`);
+                        const titleLinkInput = document.getElementById(`title-link-${item.id}`);
+                        const detailLinkInput = document.getElementById(`detail-link-${item.id}`);
+                        
+                        const titleAnchor = document.getElementById(`title-anchor-${item.id}`);
+                        const actionAnchor = document.getElementById(`action-${item.id}`);
+
+                        if (title) title.innerText = item.title;
+                        if (desc) desc.innerText = item.desc;
+                        if (actionText && item.actionLabel) actionText.innerText = item.actionLabel;
+                        if (menuText && item.menuText) menuText.innerText = item.menuText;
+                        if (actionLabelInput && item.actionLabel) actionLabelInput.value = item.actionLabel;
+                        
+                        if (titleLinkInput) titleLinkInput.value = item.titleLink || '#';
+                        if (detailLinkInput) detailLinkInput.value = item.detailLink || '#';
+
+                        if (titleAnchor) titleAnchor.href = item.titleLink || '#';
+                        if (actionAnchor) actionAnchor.href = item.detailLink || '#';
+
+                        const sidebarLinkInput = document.getElementById(`sidebar-link-${item.id}`);
+                        const sidebarBtn = document.getElementById(`sidebar-btn-${item.id}`);
+
+                        if (sidebarLinkInput) sidebarLinkInput.value = item.sidebarLink || '#';
+                        if (sidebarBtn) sidebarBtn.href = item.sidebarLink || '#';
+                    });
+                }
+            }
+        }
+
+        window.onload = loadSavedData;
+    </script>
+</body>
+</html>
